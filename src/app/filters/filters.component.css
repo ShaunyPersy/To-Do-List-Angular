@@ -1,0 +1,45 @@
+:root {
+    --tmenu-color: #3A5A40;
+    --tmenu-hover-color: #324730;
+    --smenu-color: #C1D5A0;
+    --listBG-color: #DAD7CD;
+}
+
+.shift {
+    margin-top: 8%;
+}
+
+.shiftRight {
+    margin-left: 10%;
+}
+
+hr {
+    width: 20%;
+    margin: 0 auto;
+}
+
+.addFilter {
+    box-shadow: 1px 3px 4px #676767;
+    background-color: var(--tmenu-color);
+    position: fixed;
+    right: 180px;
+    top: 110px;
+    width: 70px;
+    height: 70px;
+}
+
+.addFilter:hover {
+    background-color: var(--tmenu-hover-color);
+}
+
+.cust {
+    width: 85%;
+}
+
+.modal-header {
+    background-color: var(--smenu-color);
+}
+
+.modal-content {
+    background-color: var(--listBG-color);
+}

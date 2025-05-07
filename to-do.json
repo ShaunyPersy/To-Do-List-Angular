@@ -1,0 +1,108 @@
+{
+  "filters": [
+    {
+      "id": "1",
+      "name": "School",
+      "color": "#6A994E"
+    },
+    {
+      "id": "2",
+      "name": "Personal",
+      "color": "#A1B590"
+    },
+    {
+      "id": "16f7",
+      "name": "Hobby",
+      "color": "#89d7ce"
+    }
+  ],
+  "lists": [
+    {
+      "id": "3170",
+      "filterID": "1",
+      "name": "GUI"
+    },
+    {
+      "id": "ff48",
+      "filterID": "2",
+      "name": "List 2"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "693b",
+      "name": "Task  1",
+      "date": "",
+      "status": "uncompleted",
+      "listID": "ff48"
+    },
+    {
+      "id": "2c73",
+      "name": "Create a cool website",
+      "date": "2024-05-26",
+      "status": "uncompleted",
+      "listID": "3170"
+    },
+    {
+      "id": "7dee",
+      "name": "I completed this task",
+      "date": "2024-05-26",
+      "status": "completed",
+      "listID": "ff48"
+    },
+    {
+      "id": "baf2",
+      "name": "another date",
+      "date": "2024-10-23",
+      "status": "uncompleted",
+      "listID": "3170"
+    },
+    {
+      "id": "2bd8",
+      "name": "Eieren",
+      "date": "2024-10-09",
+      "status": "completed",
+      "listID": "3170"
+    }
+  ],
+  "subTasks": [
+    {
+      "id": "3e36",
+      "name": "subtask 3",
+      "date": "",
+      "status": "uncompleted",
+      "taskID": "8368"
+    },
+    {
+      "id": "a4d5",
+      "name": "Subtasks",
+      "date": "2024-05-29",
+      "status": "completed",
+      "taskID": "693b"
+    },
+    {
+      "id": "d35d",
+      "name": "with angular",
+      "date": "",
+      "status": "completed",
+      "taskID": "2c73"
+    },
+    {
+      "id": "ae49",
+      "name": "task1",
+      "date": "2024-10-18",
+      "status": "completed",
+      "taskID": "2bd8"
+    }
+  ],
+  "colors": [
+    {
+      "defaultColor": "yes",
+      "tMenu": "#588157",
+      "sMenu": "#C1D5A0",
+      "menuBG": "#FFFFFF",
+      "listBG": "#DAD7CD",
+      "id": "1"
+    }
+  ]
+}

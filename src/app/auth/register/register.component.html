@@ -1,0 +1,61 @@
+<div class="registerForm d-flex flex-column justify-content-center align-items-center">
+    <p class="bi bi-person-circle h1 text-center"></p>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="text" id="email" formControlName="email" class="form-control"/>
+            <span
+                *ngIf="!email.valid && email.touched"
+                class="help-block">
+
+                <span *ngIf="email.errors && email.errors['required']">
+                    Please enter an email
+                </span>
+
+                <span *ngIf="email.errors && email.errors['emailTaken']">
+                    Email already in use
+                </span>
+            </span>
+        </div>
+        <div class="form-group position-relative">
+            <label for="password">Password:</label>
+            <input 
+                [type]="passStatus ? 'text' : 'password'" 
+                id="password" 
+                formControlName="password" 
+                class="form-control" 
+            />
+            <i 
+                [ngClass]="passStatus ? 'bi bi-eye-slash' : 'bi bi-eye'" 
+                class="password-toggle"
+                (click)="togglePass(!passStatus)"
+                style="cursor: pointer;">
+            </i>
+        </div>
+        <span *ngIf="!password.valid && password.touched">
+            <span *ngIf="password.errors && password.errors['required']">
+                Please enter a password
+            </span>
+            <span *ngIf="password.errors && password.errors['invalidFormat']">
+                This is an invalid password
+            </span>
+        </span>
+        <div class="form-group">
+            <label for="confirm-pass">Confirm Password:</label>
+            <input type="password" id="confirm-pass" class="form-control" formControlName="confirmPass"/>
+            <span
+                *ngIf="!confirmPass.valid && confirmPass.touched">
+                <span
+                    *ngIf="confirmPass.errors && confirmPass.errors?.['required']">
+                    Confirm Password required
+                </span>
+                <span
+                    *ngIf="confirmPass.errors && confirmPass.errors?.['passwordMismatch']">
+                    Passwords don't match
+                </span>
+            </span>
+        </div>
+        <a class="d-flex justify-content-center" (click)="onLogin()">Already have an account?</a>
+        <button [disabled]="!form.valid" class="btn btn-primary mt-3 float-end" type="submit">Sign Up</button>
+    </form>
+</div>

@@ -1,0 +1,72 @@
+<div>
+    <div class="container d-flex justify-content-center align-items-center mt-4">
+        <div class="row justify-content-center">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center border-bottom border-dark border-1 filter" [style.backgroundColor]="filter.color">
+                        <h3 class="mb-0">{{list.name}}</h3>
+                        <div>
+                            <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#modalEditList" (click)="selectListObj()"><i class="bi bi-pencil-square h3"></i></button>
+                            <button class="btn btn-outline-dark ms-1" data-bs-toggle="modal" data-bs-target="#modalDelete" (click)="selectListID()"><i class="bi bi-trash-fill h3"></i></button>
+                        </div>
+                    </div>
+                    <div class="card-body" [style.backgroundColor]="listBG">
+                        <ng-container *ngFor="let task of tasks| sortTasks: sort : order; let i = index">
+                            <div>
+                                <input class="form-check-input" type="checkbox" id="task{i}" (change)="statusTask(task, 'completed')"/>
+                                <label class="form-check-label ms-2" for="task{i}">{{task.name}}</label>
+                                <p class="inline ms-5" *ngIf="task.date" appHighlightOverdue [dueDate]="task.date">{{task.date | date }}</p>
+        
+                                <div *ngIf="subTasks && subTasks.length > 0">
+                                    <ng-container *ngFor="let subTask of subTasks; let i = index">
+                                        <!--Uncompleted subTask-->
+                                        <div class="ms-4" *ngIf="subTask.taskID == task.id && subTask.status == 'uncompleted'">
+                                            <input class="form-check-input" type="checkbox" id="{{subTask.name}}" (change)="statusSubTask(subTask, 'completed')"/>
+                                            <label class="form-check-label ms-2" for="{{subTask.name}}">{{subTask.name}}</label>
+                                            <p class="inline ms-5" *ngIf="subTask.date" appHighlightOverdue [dueDate]="subTask.date">{{subTask.date | date}}</p>
+                                        </div>
+
+                                        <!--Completed subTask-->
+                                        <div class="ms-4" *ngIf="subTask.taskID == task.id && subTask.status == 'completed'">
+                                            <input class="form-check-input completedCheck" type="checkbox" id="{{subTask.name}}" checked (change)="statusSubTask(subTask, 'uncompleted')"/>
+                                            <label class="form-check-label completedTask ms-2" for="{{subTask.name}}">{{subTask.name}}</label>
+                                            <p class="inline completedTask ms-5" *ngIf="subTask.date" appHighlightOverdue [dueDate]="subTask.date">{{subTask.date | date}}</p>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </ng-container>
+
+                        <!--Completed tasks-->
+                        <div *ngIf="completedTasks.length >= 1">
+                            <hr/>
+                            <p class="inline">Completed Tasks</p>
+                            <i class="bi bi-trash-fill h5 opacity-50 float-end" (click)="deleteCompleted()"></i>
+                            <ng-container *ngFor="let task of completedTasks; let i = index">
+                                <div class="completed-task">
+                                    <input class="form-check-input completedCheck" type="checkbox" id="completedTask{{i}}" checked (change)="statusTask(task, 'uncompleted')">
+                                    <label class="form-check-label completedTask ms-2" for="completedTask{{i}}">{{task.name}}</label>
+                                    <p class="inline completedTask ms-5" *ngIf="task.date">{{task.date | date }}</p>
+            
+                                    <div *ngIf="subTasks && subTasks.length > 0">
+                                        <ng-container *ngFor="let subTask of subTasks; let i = index">
+                                            <div class="ms-4" *ngIf="subTask.taskID == task.id">
+                                                <input class="form-check-input completedCheck" type="checkbox" id="completed-{{subTask.name}}" checked (change)="statusSubTask(subTask, 'uncompleted')"/>
+                                                <label class="form-check-label completedTask ms-2" for="completed-{{subTask.name}}">{{subTask.name}}</label>
+                                                <p class="inline completedTask ms-5" *ngIf="subTask.date">{{subTask.date | date}}</p>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+    
+                        <div class="container d-flex justify-content-center align-items-center mt-3">
+                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#modalNewTask" (click)="selectListID()" [ngStyle]="{backgroundColor: hover  ? getHoverColor() : filter.color }" (mouseover)="hover=true" (mouseleave)="hover=false"><i class="bi bi-plus h3"></i></button>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </div>
+</div>

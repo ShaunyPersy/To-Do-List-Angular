@@ -1,0 +1,58 @@
+:root {
+    --tmenu-color: #3A5A40;
+    --tmenu-hover-color: #324730;
+    --smenu-color: #C1D5A0;
+    --listBG-color: #DAD7CD;
+}
+
+.modal-header, #addTask {
+    background-color: var(--smenu-color)
+}
+
+.shift {
+    margin-top: 5%;
+}
+
+.addList {
+    box-shadow: 1px 3px 4px #676767;
+}
+
+#searchbar {
+    width: 50%;
+    margin-left: 11%;
+}
+
+.container {
+    width: 100%;
+    padding: 0;
+}
+
+.modal-content {
+    background-color: var(--listBG-color);
+}
+
+.addList {
+    background-color: var(--tmenu-color);
+    position: fixed;
+    right: 180px;
+    top: 110px;
+    width: 70px;
+    height: 70px;
+}
+
+.addList:hover {
+    background-color: var(--tmenu-hover-color);
+}
+
+.hideDate {
+    display: none;
+}
+
+.dropdown-menu ul {
+    list-style-type: none;
+}
+
+.modal-body {
+    max-height: 200px;
+    overflow-y: auto;
+}

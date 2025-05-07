@@ -1,0 +1,217 @@
+
+    <div class="container d-flex justify-content-center align-items-center shift">
+        <div id="searchbar" class="input-group rounded mt-5">
+            <input type="search" class="form-control rounder" placeholder="Search" aria-label="Search" aria-describedby="search-addon" (keydown)="onGetLists()" [(ngModel)]="searchTerm"/>
+            <button class="input-group-text border-0" id="search-addon" (click)="onGetLists()">
+                <i class="bi bi-search"></i>
+            </button>
+            <div class="btn-group ms-3" role="group">
+                <button type="button" class="input-group-text dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-filter-square"></i>
+                </button>
+                <ul class="dropdown-menu">
+                  <li>Order:
+                        <ul>
+                            <li>
+                                <input class="form-check-input" type="radio" name="radioOrder" id="radioAsc" value="asc" checked [(ngModel)]="order" (change)="onFilterChange()">
+                                <label class="form-check-label" for="radioAsc">
+                                  Ascending
+                                </label>
+                            </li>
+                            <li>
+                                <input class="form-check-input" type="radio" name="radioOrder" id="radioDesc" value="desc" [(ngModel)]="order" (change)="onFilterChange()">
+                                <label class="form-check-label" for="radioDesc">
+                                  Descending
+                                </label>
+                            </li>
+                        </ul>
+                  </li>
+                  <li>Sort by:
+                        <ul>
+                            <li>
+                                <input class="form-check-input" type="radio" name="radioSort" id="radioDate" value="date" checked [(ngModel)]="sort" (change)="onFilterChange()">
+                                <label class="form-check-label" for="radioDate">
+                                  Date
+                                </label>
+                            </li>
+                            <li>
+                                <input class="form-check-input" type="radio" name="radioSort" id="radioName" value="name" [(ngModel)]="sort" (change)="onFilterChange()">
+                                <label class="form-check-label" for="radioName">
+                                  Name
+                                </label>
+                            </li>
+                        </ul>
+                  </li>
+                </ul>
+              </div>
+        </div>
+    </div>
+
+    <!--Lists-->
+    <div class="container d-flex justify-content-center align-items-center mt-4">
+        <p id="noSearchResult" *ngIf="noSearchResult">No Lists with that name.</p>
+        <div class="row justify-content-center">
+          <ng-container *ngFor="let list of lists; let i = index">
+            <div class="col-sm-6 mb-3">
+                  <app-list [list]="lists[i]" [listBG]="color.listBG" (selectEvent)="onSelectEvent($event)" (selectObjEvent)="onSelectObjEvent($event)"></app-list>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    
+    <button type="button" class="btn addList" data-bs-toggle="modal" data-bs-target="#modalNewList"><i class="bi bi-plus h3"></i></button>
+
+    <!--Modal New Task-->
+    <div class="modal fade" id="modalNewTask" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalLabel">New Task</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" action="#">
+                    <div class="modal-body" id="modalBody">
+                        <div>
+                            <div class="form-group">
+                                <label for="name">Name: </label>
+                                <input type="text" class="form-control" name="name" id="taskName" [(ngModel)]="newTask.name"/>
+                            </div>
+        
+                            <div class="form-group">
+                                <div>
+                                    <label for="date5">Date:</label>
+                                    <input style="display: none;" type="date" class="form-control hideDate" name="date5" id="date5" [(ngModel)]="newTask.date"/>
+                                </div>
+                            
+                                <div class="form-check">
+                                    <input class="form-check-input" name="dateChoice" type="radio" value="yes" id="dateYes5" (click)="toggle(1, 5)"/>
+                                    <label class="form-check-label" for="dateYes5">Yes</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" name="dateChoice" type="radio" value="no" id="dateNo5" (click)="toggle(0, 5)"/>
+                                    <label class="form-check-label" for="dateNo5">No</label>
+                                </div>
+                            </div>
+                            <hr/>
+                        </div>
+                        <div *ngFor="let subTask of newSubTasks; index as i">
+                            <div class="row">
+                                <div class="col">
+                                    <p>subtask</p>
+                                    <div class="form-group">
+                                        <label for="name">Name: </label>
+                                        <input type="text" class="form-control" name="name{{i}}" id="name{{i}}" [(ngModel)]="newSubTasks[i].name"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <div>
+                                            <label for="date">Date:</label>
+                                            <input style="display: none;" type="date" class="form-control hideDate" name="date{{i}}" id="date{{i}}" [(ngModel)]="newSubTasks[i].date"/>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" name="dateChoice" type="radio" value="yes" id="dateYes{{i}}" (click)="toggle(1, i)"/>
+                                            <label class="form-check-label" for="dateYes{{i}}">Yes</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" name="dateChoice" type="radio" value="no" id="dateNo{{i}}" (click)="toggle(0, i)"/>
+                                            <label class="form-check-label" for="dateNo{{i}}">No</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto d-flex align-items-center justify-content-end">
+                                    <button type="button" class="btn btn-danger" (click)="delSubTask(i)"><i class="bi bi-trash-fill h3"></i></button>
+                                </div>
+                            </div>
+
+                            <hr/>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <button type="button" id="addTask" class="btn" (click)="addSubTask()"><i class="bi bi-plus h3"></i></button>
+                        <p class="mb-0">SubTask</p>
+                        <p class="mb-0 ms-auto">{{counter}}/5</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="saveTask()">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>    
+
+    <!--Modal Edit-->
+    <div class="modal fade" id="modalEditList" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalLabel">{{selectedList.name}}</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" action="#">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="name">Title: </label>
+                            <input type="text" class="form-control" name="name" id="listName" [(ngModel)]="selectedList.name" [value]="selectedList.name"/>
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="filter">Filter: </label>
+                            <select class="form-select" name="filter" [(ngModel)]="selectedList.filterID">
+                                <option *ngFor="let filter of filters" [value]="filter.id" [selected]="selectedList.filterID == filter.id">{{filter.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="editList()">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>  
+
+    <!--Modal New List-->
+    <div class="modal fade" id="modalNewList" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalLabel">New List</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" action="#">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="listName">Title: </label>
+                            <input type="text" class="form-control" name="listName" id="listName" [(ngModel)]="newList.name"/>
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="filter">Filter: </label>
+                            <select class="form-select" name="filter" [(ngModel)]="newList.filterID">
+                                <option *ngFor="let filter of filters; first as isFirst" [value]="filter.id">{{filter.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="saveList()">Save</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>  
+
+    <!--Modal Delete-->
+    <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                    <div class="modal-body">
+                        <p class="text-center">Are you sure you want to delete list ... ?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="deleteList()">Yes</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                    </div>
+            </div>
+        </div>
+    </div> 

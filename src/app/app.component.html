@@ -1,0 +1,40 @@
+<div class="background" *ngIf="useNavBar">
+    <nav class="d-flex justify-content-between align-items-center">
+        <a routerLink="/home" class="d-flex justify-content-center border-bottom border-left" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><i class="bi bi-house h1 align-self-center"></i></a>
+        <h1>To-do</h1>
+        <div class="d-flex justify-content-center dropdown">
+            <a class="d-flex justify-content-center">
+                <i class="bi bi-person h1 align-self-center"></i>
+            </a>
+            <div class="dropdown-content">
+                <a routerLink="/filters" class="d-flex justify-content-center align-self-center border-right h2 m-0 p-2"
+                    routerLinkActive="active">
+                    Filters
+                </a>
+                <a routerLink="/settings" class="d-flex justify-content-center border-right" 
+                   routerLinkActive="active" *ngIf="isAdmin">
+                    <i class="bi bi-gear h1 align-self-center"></i>
+                </a>
+                <a class="d-flex justify-content-center border-right" (click)="onLogout()">
+                    <i class="bi bi-door-closed h1 align-self-center"></i>
+                </a>
+            </div>
+        </div> 
+    </nav>
+    
+    <div class="sidebar" *ngIf="route.startsWith('home')">
+        <a routerLink="/home" class="d-flex justify-content-center add"><h3 class="align-self-center" routerLinkActive="active">All</h3></a>
+        <a *ngFor="let filter of filters" 
+            [routerLink]="['/home', filter.id]" 
+            class="d-flex justify-content-center filter-item" 
+            routerLinkActive="active" 
+            [style.background-color]="filter.color">
+            <h3 class="align-self-center">{{filter.name}}</h3>
+        </a>
+        <a routerLink="/filters" class="d-flex justify-content-center add"><i class="bi bi-plus h3 align-self-center"></i></a>
+        </div>
+    
+    <router-outlet></router-outlet>
+</div>
+
+<router-outlet *ngIf="!useNavBar"></router-outlet>

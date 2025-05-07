@@ -1,0 +1,9 @@
+<div class="card">
+    <div class="card-body d-flex justify-content-between align-items-center" [style.background-color]="filter.color">
+        <h3>{{filter.name}}</h3>
+        <div>
+            <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#modalEditFilter" (click)="selectFilterObj()"><i class="bi bi-pencil-square h3"></i></button>
+            <button class="btn btn-outline-dark ms-1" data-bs-toggle="modal" data-bs-target="#modalDelete" (click)="selectFilterID()"><i class="bi bi-trash-fill h3"></i></button>
+        </div>
+    </div>
+</div>  

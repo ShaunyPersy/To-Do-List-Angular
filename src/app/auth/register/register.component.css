@@ -1,0 +1,16 @@
+input.ng-invalid.ng-touched {
+    border: 1px solid red;
+}
+
+span {
+    color: red;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 15px;
+    top: 80%;
+    transform: translateY(-80%);
+    font-size: 1.25rem;
+    color: #6c757d;
+}

@@ -1,0 +1,87 @@
+<h2 class="text-center shift">Filters</h2>
+<hr/>
+
+<div class="container mt-4 shiftRight">
+    <div class="row justify-content-center">
+        <ng-container *ngFor="let filter of filters; let i = index">
+            <div class="col-4 mb-3">
+                <app-filter *ngIf="filters" [filter]="filters[i]" (selectEvent)="onSelectEvent($event)" (selectObjEvent)="onSelectObjEvent($event)"></app-filter>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<!--Modal New Filter-->
+<div class="modal fade" id="modalNewFilter" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" [style.backgroundColor]="color.listBG">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalLabel">New Filter</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="name">Name: </label>
+                        <input type="text" class="form-control" name="name" id="name" [(ngModel)]="newFilter.name"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="color">Color: </label>
+                        <input type="color" class="form-control" name="color" [(ngModel)]="newFilter.color"/>
+                    </div>
+                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="saveFilter()">Save</button>
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>  
+
+<!--Modal Edit Filter-->
+<div class="modal fade" id="modalEditFilter" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalLabel">Edit Filter</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" action="#">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="name">Name: </label>
+                        <input type="text" class="form-control" name="name" id="name" [(ngModel)]="selectedFilter.name" [value]="selectedFilter.name"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="color">Color: </label>
+                        <input type="color" class="form-control" name="color" [(ngModel)]="selectedFilter.color" [value]="selectedFilter.color"/>
+                    </div>
+                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="editFilter()">Save</button>
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>  
+
+<!--Modal Delete-->
+<div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+                <div class="modal-body">
+                    <p class="text-center">Are you sure you want to delete filter ... ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="deleteFilter()">Yes</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                </div>
+        </div>
+    </div>
+</div> 
+
+<button type="button" class="btn addFilter" data-bs-toggle="modal" data-bs-target="#modalNewFilter"><i class="bi bi-plus h3"></i></button>

@@ -1,0 +1,33 @@
+<div class="registerForm d-flex flex-column justify-content-center align-items-center">
+    <p class="bi bi-person-circle h1 text-center"></p>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="text" id="email" formControlName="email" class="form-control"/>
+            <span
+                *ngIf="!email.valid && email.touched"
+                class="help-block">
+                Please enter an email.
+            </span>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" formControlName="password" class="form-control"/>
+            <span
+                *ngIf="!password.valid && password.touched">
+                <span
+                    *ngIf="password.errors && password.errors['required']">
+                    Please enter a password.
+                </span>
+
+                <span
+                    *ngIf="password.errors && password.errors['invalidFormat']">
+                    This is an invalid password.
+                </span>
+            </span>
+        </div>
+        <a class="d-flex justify-content-center" (click)="onRegister()">Don't have an account?</a>
+        <p *ngIf="invalidLogin" class="alert alert-danger">Invalid username and/or password.</p>
+        <button [disabled]="!form.valid" class="btn btn-primary mt-3 float-end" type="submit">Login</button>
+    </form>
+</div>
